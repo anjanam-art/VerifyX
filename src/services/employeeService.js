@@ -319,6 +319,9 @@ export const findCandidate = async (id) => {
   }
 };
 
+const makeLocalId = () =>
+  `local-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+
 export async function addCandidate(candidate) {
   const normalized = {
     ...candidate,
@@ -326,6 +329,7 @@ export async function addCandidate(candidate) {
     appliedRole: candidate.appliedRole || candidate.role || 'Candidate',
     candidateType: String(candidate.candidateType || candidate.experience || 'FRESHER').toUpperCase().includes('EXPER') ? 'EXPERIENCED' : 'FRESHER',
   };
+
   try {
     await api.candidateRegister({
       username: normalized.fullName,
@@ -335,9 +339,22 @@ export async function addCandidate(candidate) {
       appliedRole: normalized.appliedRole,
       candidateType: normalized.candidateType,
     });
+    // Backend accepted it, but the HR "candidates" list only reflects the
+    // backend after a real page reload/fetch. Also mirror it into
+    // localStorage right away so it shows up immediately and repeated adds
+    // never silently disappear if the backend list endpoint lags behind.
+    try {
+      await saveLocalCandidate({ ...normalized, id: normalized.id || makeLocalId(), emailVerified: true }, candidate.password || 'Verify@123');
+    } catch {
+      // Non-fatal: backend save already succeeded.
+    }
     return normalized;
   } catch {
-    return saveLocalCandidate({ ...normalized, id: `local-${Date.now()}`, emailVerified: true }, candidate.password || 'Verify@123');
+    // No backend reachable (or it rejected the request) — always fall back
+    // to localStorage so the candidate is still saved and visible, and so
+    // this works the same way every time, no matter how many candidates
+    // are added.
+    return saveLocalCandidate({ ...normalized, id: makeLocalId(), emailVerified: true }, candidate.password || 'Verify@123');
   }
 }
 

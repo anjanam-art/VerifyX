@@ -26,23 +26,23 @@ export default function CandidateRegister() {
 
   const submit = async (e) => {
     e.preventDefault(); setErr(""); setMsg("");
-    if (!REGEX.name.test(form.fullName.trim())) return setErr("Full Name Must Contain Only Letters And Spaces.");
-    if (!REGEX.email.test(form.email.trim())) return setErr("Please Enter A Valid Email Address.");
-    if (!REGEX.mobile.test(form.phone.trim())) return setErr("Mobile Number Must Be Exactly 10 Digits And Start With 6, 7, 8, or 9.");
-    if (form.password.length < 8) return setErr("Password Must Contain At least 8 Characters.");
+    if (!REGEX.name.test(form.fullName.trim())) return setErr("Full name must contain only letters and spaces.");
+    if (!REGEX.email.test(form.email.trim())) return setErr("Please enter a valid email address.");
+    if (!REGEX.mobile.test(form.phone.trim())) return setErr("Mobile number must be exactly 10 digits and start with 6, 7, 8, or 9.");
+    if (form.password.length < 8) return setErr("Password must contain at least 8 characters.");
     try { setBusy(true); const result = await registerCandidate(form); ensureRegistrationReminder(form); setVerificationStep(true); const devOtp = String(result || "").match(/DEV_OTP=(\d{6})/)?.[1]; setMsg(devOtp ? `Account created. Local test OTP: ${devOtp} (enable mail settings for real email delivery).` : "Account created. We sent a 6-digit verification OTP to your email."); }
     catch (x) { setErr(x.message); } finally { setBusy(false); }
   };
 
   const verify = async (e) => {
     e.preventDefault(); setErr("");
-    if (!/^\d{6}$/.test(otp)) return setErr("Enter The 6-digit OTP From Your Email.");
-    try { setBusy(true); await verifyCandidateEmail(form.email, otp); sendWelcomeMail(form).catch(()=>{}); sendProfileCompletionReminder(form, true).catch(()=>{}); sendHrCandidateRegisteredMail(form).catch(()=>{}); nav("/candidate-login", { state: { message: "Email Verified Successfully. Please Login To Continue." } }); }
+    if (!/^\d{6}$/.test(otp)) return setErr("Enter the 6-digit OTP from your email.");
+    try { setBusy(true); await verifyCandidateEmail(form.email, otp); sendWelcomeMail(form).catch(()=>{}); sendProfileCompletionReminder(form, true).catch(()=>{}); sendHrCandidateRegisteredMail(form).catch(()=>{}); nav("/candidate-login", { state: { message: "Email verified successfully. Please login to continue." } }); }
     catch (x) { setErr(x.message); } finally { setBusy(false); }
   };
 
   const resend = async () => {
-    try { setErr(""); await resendCandidateVerification(form.email); setMsg("A Fresh OTP Has Been Sent To Your Email."); }
+    try { setErr(""); await resendCandidateVerification(form.email); setMsg("A fresh OTP has been sent to your email."); }
     catch (x) { setErr(x.message); }
   };
 
@@ -51,14 +51,14 @@ export default function CandidateRegister() {
     <main className="auth-wrap register-premium-wrap">
       <section className="register-premium-shell">
         <div className="register-copy">
-          <span className="auth-mini-label">Candidate Onboarding</span>
-          <h1>Build A Verified Career Profile.</h1>
-          <p>One Secure Profile For Identity, Education, Employment And Offer-Document Verification.</p>
+          <span className="auth-mini-label">Candidate onboarding</span>
+          <h1>Build a verified career profile.</h1>
+          <p>One secure profile for identity, education, employment and offer-document verification.</p>
           <div className="register-benefits"><span>✓ Email verified registration</span><span>✓ Secure document tracking</span><span>✓ Live verification status</span></div>
         </div>
         <form className="auth-card wide register-card" onSubmit={verificationStep ? verify : submit}>
           <h1>{verificationStep ? "Verify Email" : "Candidate Sign Up"}</h1>
-          <p className="muted">{verificationStep ? `Enter The OTP Sent To ${form.email}` : "Create Your Account First. After Email Verification, You Will Be Redirected To Login."}</p>
+          <p className="muted">{verificationStep ? `Enter the OTP sent to ${form.email}` : "Create your account first. After email verification, you will be redirected to login."}</p>
           {err && <div className="error">{err}</div>}{msg && <div className="success">{msg}</div>}
           {!verificationStep ? <div className="grid2">
             <input placeholder="Full Name" value={form.fullName} maxLength={60} onChange={(e)=>set("fullName",e.target.value)} required />
@@ -71,11 +71,11 @@ export default function CandidateRegister() {
             <input placeholder="Password (minimum 8 characters)" type="password" value={form.password} onChange={(e)=>set("password",e.target.value)} required />
             <select value={form.candidateType} onChange={(e)=>set("candidateType",e.target.value)}><option>Fresher</option><option>Experienced</option></select>
           </div> : <div className="otp-box">
-            <input className="otp-input" placeholder="6-Digit OTP" inputMode="numeric" maxLength={6} value={otp} onChange={(e)=>setOtp(e.target.value.replace(/\D/g,"").slice(0,6))} autoFocus />
+            <input className="otp-input" placeholder="6-digit OTP" inputMode="numeric" maxLength={6} value={otp} onChange={(e)=>setOtp(e.target.value.replace(/\D/g,"").slice(0,6))} autoFocus />
             <button type="button" className="forgot-button" onClick={resend}>Resend OTP</button>
           </div>}
-          <button className="btn primary full" disabled={busy}>{busy ? "Please Wait..." : verificationStep ? "Verify & Continue To Login" : "Create Account & Send OTP"}</button>
-          <p>Already Registered? <Link to="/candidate-login">Login</Link></p>
+          <button className="btn primary full" disabled={busy}>{busy ? "Please wait..." : verificationStep ? "Verify & Continue to Login" : "Create Account & Send OTP"}</button>
+          <p>Already registered? <Link to="/candidate-login">Login</Link></p>
         </form>
       </section>
     </main>

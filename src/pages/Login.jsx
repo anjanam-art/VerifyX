@@ -115,11 +115,11 @@ export default function Login({ mode }) {
 
           {!forgot ? <>
             <label className="field-label" htmlFor="login-email">Email</label>
-            <input id="login-email" type="email" list={!isAdmin ? "registered-candidate-emails" : undefined} autoComplete="email" placeholder="Start Typing Your Registered Email" value={form.email} onChange={(e)=>setForm({...form,email:e.target.value})} required />
+            <input id="login-email" type="email" list={!isAdmin ? "registered-candidate-emails" : undefined} autoComplete="email" placeholder="Start typing your registered email" value={form.email} onChange={(e)=>setForm({...form,email:e.target.value})} required />
             {!isAdmin && <datalist id="registered-candidate-emails">{registeredCandidateEmails.map((email) => <option value={email} key={email} />)}</datalist>}
             {!isAdmin && registeredCandidateEmails.length > 0 && <small className="login-history-hint">Start typing to select a previously registered candidate email.</small>}
             <label className="field-label" htmlFor="login-password">Password</label>
-            <div className="password-wrap"><input id="login-password" type={showPassword ? "text" : "password"} placeholder="Enter Password" value={form.password} onChange={(e)=>setForm({...form,password:e.target.value})} required/><button type="button" className="password-toggle" onClick={()=>setShowPassword(!showPassword)}>{showPassword ? "🙈" : "👁️"}</button></div>
+            <div className="password-wrap"><input id="login-password" type={showPassword ? "text" : "password"} placeholder="Enter password" value={form.password} onChange={(e)=>setForm({...form,password:e.target.value})} required/><button type="button" className="password-toggle" onClick={()=>setShowPassword(!showPassword)}>{showPassword ? "🙈" : "👁️"}</button></div>
             <div className="auth-options"><label className="remember-row"><input type="checkbox" checked={remember} onChange={(e)=>setRemember(e.target.checked)}/><span>Remember me</span></label><button type="button" className="forgot-button" onClick={()=>{setForgot(true);setReset((r)=>({...r,identifier:form.email}))}}>Forgot Password?</button></div>
             <button className="btn primary full auth-login-btn">Login Securely</button>
             {!isAdmin && <p className="signup-line">First Time Here? <Link to="/candidate-register">Create Candidate Account</Link></p>}
@@ -129,17 +129,17 @@ export default function Login({ mode }) {
               <button type="button" className={verificationMethod === "phone" ? "active" : ""} onClick={()=>{setVerificationMethod("phone");setOtpSent(false);}}>Phone Verification</button>
             </div>
             <label className="field-label">Registered {verificationMethod === "email" ? "Email" : "Phone Number"}</label>
-            <input type={verificationMethod === "email" ? "email" : "tel"} inputMode={verificationMethod === "phone" ? "numeric" : undefined} maxLength={verificationMethod === "phone" ? 10 : undefined} placeholder={verificationMethod === "email" ? "Name@example.com" : "10-Digit Mobile Number"} value={reset.identifier} onChange={(e)=>setReset({...reset,identifier: verificationMethod === "phone" ? e.target.value.replace(/\D/g,"").slice(0,10) : e.target.value})} required />
+            <input type={verificationMethod === "email" ? "email" : "tel"} inputMode={verificationMethod === "phone" ? "numeric" : undefined} maxLength={verificationMethod === "phone" ? 10 : undefined} placeholder={verificationMethod === "email" ? "name@example.com" : "10-digit mobile number"} value={reset.identifier} onChange={(e)=>setReset({...reset,identifier: verificationMethod === "phone" ? e.target.value.replace(/\D/g,"").slice(0,10) : e.target.value})} required />
             {otpSent && <>
-              <label className="field-label">Verification OTP</label><input inputMode="numeric" maxLength={6} placeholder="6-Digit OTP" value={reset.otp} onChange={(e)=>setReset({...reset,otp:e.target.value.replace(/\D/g,"").slice(0,6)})} required />
+              <label className="field-label">Verification OTP</label><input inputMode="numeric" maxLength={6} placeholder="6-digit OTP" value={reset.otp} onChange={(e)=>setReset({...reset,otp:e.target.value.replace(/\D/g,"").slice(0,6)})} required />
               <label className="field-label">New Password</label><input type="password" placeholder="Minimum 8 characters" value={reset.newPassword} onChange={(e)=>setReset({...reset,newPassword:e.target.value})} required />
-              <label className="field-label">Confirm Password</label><input type="password" placeholder="Confirm New Password" value={reset.confirmPassword} onChange={(e)=>setReset({...reset,confirmPassword:e.target.value})} required />
+              <label className="field-label">Confirm Password</label><input type="password" placeholder="Confirm new password" value={reset.confirmPassword} onChange={(e)=>setReset({...reset,confirmPassword:e.target.value})} required />
             </>}
             <button className="btn primary full auth-login-btn">{otpSent ? "Verify OTP & Reset Password" : "Send Verification OTP"}</button>
             <button type="button" className="forgot-button back-login-btn" onClick={resetForgotState}>← Back to Login</button>
           </>}
         </form>
-        <aside className="login-visual-card login-story-card" aria-hidden="true"><div className="story-orb story-logo-orb"><img src="/verify-x-logo.svg" alt="Verify-X" /></div><h2>Identity. Experience. Trust.</h2><p>A Secure Verification Journey Designed For Candidates And HR Teams.</p><div className="story-steps"><span>01 Profile</span><span>02 Documents</span><span>03 Verification</span></div></aside>
+        <aside className="login-visual-card login-story-card" aria-hidden="true"><div className="story-orb"><img src="/verify-x-mark-white.svg" alt="" className="story-orb-logo" /></div><h2>Identity. Experience. Trust.</h2><p>A Secure Verification Journey Designed For Candidates And HR Teams.</p><div className="story-steps"><span>01 Profile</span><span>02 Documents</span><span>03 Verification</span></div></aside>
       </section>
     </main>
   </>;

@@ -522,7 +522,7 @@ Ask the candidate to upload them.`
           <h2>Application Verification Action</h2>
 
           <textarea
-            placeholder="Remarks for Candidate"
+            placeholder="Remarks for candidate"
             value={remarks}
             onChange={(e) => setRemarks(e.target.value)}
           />

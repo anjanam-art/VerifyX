@@ -147,7 +147,7 @@ export default function DocumentPreviewModal({ doc, candidate, onClose, onChange
             <textarea
               id="vxm-reason-input"
               rows={2}
-              placeholder="E.g. Document is blurred, please re-upload a clearer copy."
+              placeholder="e.g. Document is blurred, please re-upload a clearer copy."
               value={reason}
               onChange={(e) => setReason(e.target.value)}
             />

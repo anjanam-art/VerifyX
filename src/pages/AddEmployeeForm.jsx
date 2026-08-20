@@ -2,10 +2,12 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import { addCandidate } from "../services/employeeService";
+import { onlyDigits } from "../utils/validators";
 
 export default function AddEmployeeForm() {
   const navigate = useNavigate();
   const [err, setErr] = useState("");
+  const [saving, setSaving] = useState(false);
 
   const [form, setForm] = useState({
     fullName: "",
@@ -24,12 +26,32 @@ export default function AddEmployeeForm() {
     e.preventDefault();
     setErr("");
 
+    const fullName = form.fullName.trim();
+    const email = form.email.trim();
+    const phone = form.phone.trim();
+
+    if (!fullName) {
+      setErr("Full name is required.");
+      return;
+    }
+    if (!/^\d{10}$/.test(phone)) {
+      setErr("Phone number must contain only numbers and be exactly 10 digits.");
+      return;
+    }
+
+    setSaving(true);
     try {
-      await addCandidate(form);
+      await addCandidate({ ...form, fullName, email, phone });
       alert("Candidate added successfully.");
-      navigate("/dashboard");
+      // Go to the full Candidate Management list, which shows every
+      // candidate regardless of status. (The Dashboard overview only
+      // shows candidates who have submitted documents, so a freshly
+      // added "Draft" candidate would otherwise appear to vanish.)
+      navigate("/employees");
     } catch (error) {
       setErr(error.message || "Failed to add candidate.");
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -69,9 +91,11 @@ export default function AddEmployeeForm() {
               />
 
               <input
-                placeholder="Phone"
+                placeholder="Phone (10 digits)"
                 value={form.phone}
-                onChange={(e) => set("phone", e.target.value)}
+                onChange={(e) => set("phone", onlyDigits(e.target.value, 10))}
+                inputMode="numeric"
+                maxLength={10}
                 required
               />
 
@@ -102,8 +126,8 @@ export default function AddEmployeeForm() {
             </div>
 
             <div className="form-actions">
-              <button type="submit" className="btn primary">
-                Save Candidate
+              <button type="submit" className="btn primary" disabled={saving}>
+                {saving ? "Saving..." : "Save Candidate"}
               </button>
 
               <button
