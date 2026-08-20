@@ -22,7 +22,7 @@ export default function LandingPage() {
         <div className="vx-ref-copy page-enter">
           <div className="vx-ref-eyebrow"><span /> Smart Candidate Verification Platform</div>
           <h1>From Application To <span>Verified Confidence.</span></h1>
-          <p>Verify-X brings Candidate Onboarding, Education and Employment Details, Document Intelligence and HR Verification into one polished workflow.</p>
+          <p>Verify-X brings Candidate Onboarding, Education and Employment Details, Document Intelligence And HR Verification Into One Polished Workflow.</p>
           <div className="vx-ref-actions">
             <Link to="/candidate-login" className="vx-ref-btn vx-ref-btn-primary">Candidate Login</Link>
             <Link to="/admin-login" className="vx-ref-btn vx-ref-btn-light">HR Login</Link>
