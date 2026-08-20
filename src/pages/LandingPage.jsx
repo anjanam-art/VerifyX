@@ -28,9 +28,9 @@ export default function LandingPage() {
             <Link to="/admin-login" className="vx-ref-btn vx-ref-btn-light">HR Login</Link>
           </div>
           <div className="vx-ref-trust">
-            <span>✓ Guided onboarding</span>
+            <span>✓ Guided Onboarding</span>
             <span>✓ Smart Document Extraction</span>
-            <span>✓ Local workflow persistence</span>
+            <span>✓ Local Workflow Persistence</span>
           </div>
         </div>
 
@@ -52,8 +52,8 @@ export default function LandingPage() {
         <div className="vx-ref-journey-top">
           <div className="vx-ref-section-copy">
             <span>How Verify-X Works</span>
-            <h2>A verification Journey that <strong>Feels Simple.</strong></h2>
-            <p>Every step is structured so candidates know what to do next and HR teams get cleaner, review-ready information.</p>
+            <h2>A verification Journey That <strong>Feels Simple.</strong></h2>
+            <p>Every Step Is Structured So Candidates Know What To Do Next And HR Teams Get Cleaner, Review-Ready Information.</p>
           </div>
           <div className="vx-ref-process-art" aria-hidden="true">
             <div className="process-sheet"><i/><i/><i/></div>
@@ -77,22 +77,22 @@ export default function LandingPage() {
       <section className="vx-ref-intelligence">
         <div className="vx-ref-intelligence-copy">
           <span>Document Intelligence</span>
-          <h2>Upload once.<br/>Fill smarter.</h2>
-          <p>The new onboarding flow can use document extraction to populate supported fields from academic documents, reducing repeated typing and helping candidates review information before submission.</p>
+          <h2>Upload Once.<br/>Fill Smarter.</h2>
+          <p>The New Onboarding Flow Can Use Document Extraction To Populate Supported Fields From Academic Documents, Reducing Repeated Typing And Helping Candidates Review Information Before Submission.</p>
           <div className="vx-ref-mini-features"><span>Board & School</span><span>Roll Number</span><span>Passing Year</span><span>Percentage</span></div>
         </div>
         <div className="vx-ref-card-stack" aria-hidden="true">
           <div className="stack-card stack-back"/>
           <div className="stack-card stack-mid"/>
-          <div className="stack-card stack-front"><i className="avatar"/><i/><i/><i/><strong>Auto-filled ✓</strong></div>
+          <div className="stack-card stack-front"><i className="avatar"/><i/><i/><i/><strong>Auto-Filled ✓</strong></div>
           <div className="stack-check">✓</div>
         </div>
       </section>
 
       <section className="vx-ref-cta">
-        <div className="vx-ref-cta-copy"><span>Ready to continue?</span><h2>Choose your Verify-X workspace.</h2></div>
-        <Link to="/candidate-login" className="vx-ref-workspace-card"><i>●</i><div><h3>Candidate Login</h3><p>Build and Track your Verified Profile</p><b>Continue →</b></div></Link>
-        <Link to="/admin-login" className="vx-ref-workspace-card"><i>●●</i><div><h3>HR Login</h3><p>Review and manage candidate checks</p><b>Continue →</b></div></Link>
+        <div className="vx-ref-cta-copy"><span>Ready To Continue?</span><h2>Choose your Verify-X Workspace.</h2></div>
+        <Link to="/candidate-login" className="vx-ref-workspace-card"><i>●</i><div><h3>Candidate Login</h3><p>Build And Track Your Verified Profile</p><b>Continue →</b></div></Link>
+        <Link to="/admin-login" className="vx-ref-workspace-card"><i>●●</i><div><h3>HR Login</h3><p>Review And Manage Candidate Checks</p><b>Continue →</b></div></Link>
       </section>
     </main>
     <Footer />
